@@ -4,7 +4,7 @@ import {
   Container, MainInfo, Temp, TempDescription,
 } from './styles';
 
-interface Props {
+export interface PropsResponseWeather {
   data: {
     coord: {
       [key: string]: number
@@ -20,19 +20,21 @@ interface Props {
     wind: {
       [key: string]: number
     };
-    dt: Date;
     name: string;
   } | undefined;
 }
 
-const CardWeather: React.FC<Props> = ({
+const URL_IMAGE_WEATHER = 'http://openweathermap.org/img/wn/';
+const EXTENSION_IMAGE = '.png';
+
+const CardWeather: React.FC<PropsResponseWeather> = ({
   data,
-}: Props) => (
+}: PropsResponseWeather) => (
   <Container>
     <h1>Tempo agora em:</h1>
     <h3>{data?.name}</h3>
     <MainInfo>
-      <img src={`http://openweathermap.org/img/wn/${data?.weather[0].icon}.png`} alt="Icone do clima" />
+      <img src={`${URL_IMAGE_WEATHER}${data?.weather[0].icon}${EXTENSION_IMAGE}`} alt="Icone do clima" />
       <div>
         <Temp>
           {data?.main.temp}

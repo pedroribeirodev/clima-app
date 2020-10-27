@@ -3,32 +3,36 @@ import React, { useEffect, useState } from 'react';
 import CardWeather from '../../components/CardWeather';
 import ButtonRefreshPage from '../../components/ButtonRefreshPage';
 
+import { getWeatherLocalUser } from '../../services/weatherServices';
+
 import { Container } from './styles';
 
 const Home: React.FC = () => {
   const [weatherData, setWeatherData] = useState();
-  const API_KEY = 'aaa93afc7f9f005102ad5043a11e6cc8';
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
-      fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${API_KEY}&units=metric&lang=pt_br`)
+      getWeatherLocalUser(position.coords.latitude, position.coords.longitude)
         .then((response) => response.json())
-        .then((data) => setWeatherData(data));
+        .then((data) => setWeatherData(data))
+        .catch((err) => console.warn(err))
+        .finally(() => setIsLoading(false));
     });
   }, []);
 
   return (
     <Container>
-      {weatherData ? (
+      {isLoading ? (
+        <span>Carregando os dados da sua localização...</span>
+      ) : (
         <>
           <CardWeather data={weatherData} />
           <ButtonRefreshPage data-testid="buttonRefreshPage">Atualizar os dados</ButtonRefreshPage>
         </>
-      ) : (
-        <span>Carregando os dados...</span>
       )}
-
     </Container>
+
   );
 };
 
