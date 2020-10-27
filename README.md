@@ -33,7 +33,7 @@ $ yarn test
 ### 🚀 Ao navegar pelo projeto
 
 Criar uma conta no site [Open Weather](https://openweathermap.org/), pegar a [API Key](https://home.openweathermap.org/api_keys) e substituir
-pela a que se encontra no arquivo index.tsx no container da Home.
+pela a que se encontra no arquivo weatherServices.ts na pasta services.
 
 ### 🛠 Tecnologias
 
