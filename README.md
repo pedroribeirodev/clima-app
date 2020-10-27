@@ -1,4 +1,4 @@
-# Teste técnico Plataform Builders
+# Aplicação com dados do clima local
 
 ## Aplicação criada para consumir uma API de clima
 
